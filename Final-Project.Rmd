@@ -1,0 +1,65 @@
+-------
+Group Members: Gabriel Wright, Brennan Sauser
+Project: Student Spending
+Class: DS 202
+output: github_document
+-------
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(tidyverse)
+library(dplyr)
+```
+
+#Analysis on Student Spending Habits
+## Introduction:
+Goal of the project is to explore the dataset to be able to visualize student spending habits
+
+Exploring the following questions/prompts:
+1) What percentage is their monthly income is used for other expenses?
+2) Does different majors affect student's income and expenses?
+
+3) Which category has the highest expenses?
+
+4) Which Majors have the highest Tuitions
+
+5) School Expenses based on Major
+
+6) Does a student's gender have any indication of their major (what majors each gender typically go into)
+
+7) Difference in student's expenses based on gender
+
+8) student spending based on year
+
+9) Distribution of Methods for paying each expense
+
+10) Major distribution (year, gender)
+
+11) Correlations of each variable/attribute
+
+## Data Structure:
+Dataset: "https://www.kaggle.com/datasets/sumanthnimmagadda/student-spending-dataset/data"
+Variables Inlcuded in the dataset:
+1) Age:
+2) Gender:
+3) Year in School:
+4) Major:
+5) Montly Income: of the student (in dollars)
+6) Financial Aid: financial aid recieved by the student (in dollars)
+7) Tuition: Expenses for tuition (in dollars)
+8) Housing: Expenses for Housing (in dollars)
+9) Food: Expenses for food (in dollars)
+10) Transportation: Expenses for transportation
+11) Book and Supplies: Expenses for books and supplies
+12) Entertainment: Expenses for Entertainment (in dollars)
+13) Personal Care: Expenses for personal care items (in dollars)
+14) Technology: Expenses for technology (in dollars)
+15) Health & Wellnesss: Expenses for health and wellness (in dollars)
+16) Miscellaneous: Miscellaneous expenses (in dollars)
+17) Preferred Payment Method: Method of payment (Cash, Credit/Debit card, Moblie Payment App)
+
+## Cleaning
+``` {r}
+```
+
