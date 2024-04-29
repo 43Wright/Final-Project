@@ -80,15 +80,14 @@ dim(spending)
 #Removing Preferred Payment Method column since it is not relevant to the questions we want to answer
 spending <- spending %>% select(-preferred_payment_method)
 
-#Adding total expenses column
-spending <- spending %>% mutate(total_expenses = rowSums(pick(tuition:miscellaneous)))
+#Adding total expenses column and other expenses column (column that excludes tuition costs from its sum) for simplicity (for easy graphing)
+spending <- spending %>% mutate(total_expenses = rowSums(pick(tuition:miscellaneous)), other_expenses = rowSums(pick(food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)))
 spending
 ```
 ## Results/Questions we want to answer
 ``` {r}
 ### Percentage of monthly income used for expenses other than school costs
-
-#spending %>% ggplot(aes())
+#spending %>% ggplot(aes(x = monthly_income, y = other_expenses)) + geom_line()
 ```
 
 ``` {r}
