@@ -18,6 +18,7 @@ Goal of the project is to explore the dataset to be able to visualize student sp
 
 Exploring the following questions/prompts:
 1) What percentage is their monthly income is used for other expenses?
+
 2) Does different majors affect student's income and expenses?
 
 3) Which category has the highest expenses?
@@ -32,11 +33,9 @@ Exploring the following questions/prompts:
 
 8) student spending based on year
 
-9) Distribution of Methods for paying each expense
+9) Major distribution by year and gender
 
-10) Major distribution (year, gender)
-
-11) Correlations of each variable/attribute
+10) Correlations of each variable/attribute
 
 ## Data Structure:
 Dataset: "https://www.kaggle.com/datasets/sumanthnimmagadda/student-spending-dataset/data"
@@ -61,5 +60,77 @@ Variables Inlcuded in the dataset:
 
 ## Cleaning
 ``` {r}
+spending <- read_csv('student_spending.csv')
+spending
 ```
 
+``` {r}
+#Checking for null values
+sum(is.na(spending))
+#No null or missing values
+
+#Summary of data
+summary(spending)
+
+#Checking dimensions of the data
+dim(spending)
+#There are 1000 rows and 18 columns
+
+#Removing Preferred Payment Method column since it is not relevant to the questions we want to answer
+spending %>% select(-preferred_payment_method)
+
+```
+## Results/Questions we want to answer
+``` {r}
+### Percentage of monthly income used for expenses other than school costs
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Distribution of majors based on their income and expenses
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Which category produces the highest expenses
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Which Majors have the highest tuition 
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### School Expenses based on major
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Distribution of Gender and Majors
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Difference in students expenses based on gender
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Student spending based on year in school
+
+#spending %>% ggplot(aes())
+```
+
+``` {r}
+### Distribution of different expenses 
+
+#spending %>% ggplot(aes())
+```
