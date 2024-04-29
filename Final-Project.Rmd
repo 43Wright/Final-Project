@@ -84,6 +84,21 @@ spending <- spending %>% select(-preferred_payment_method)
 spending <- spending %>% mutate(total_expenses = rowSums(pick(tuition:miscellaneous)), other_expenses = rowSums(pick(food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)))
 spending
 ```
+## Statistical information to take note of
+``` {r}
+#Number of each gender
+spending %>% group_by(gender) %>%
+  summarize(n = n()) %>% ungroup()
+#More male students in the data than the other two
+```
+``` {r}
+#Number of each major
+spending %>% group_by(major) %>%
+  summarize(n = n()) %>% ungroup()
+#Biology has the most amount of students in the program
+```
+
+
 ## Results/Questions we want to answer
 ``` {r}
 ### Percentage of monthly income used for expenses other than school costs
@@ -127,9 +142,9 @@ spending %>% group_by(major, gender) %>% ggplot(aes(x = major, fill = gender)) +
 
 #Displays each genders average income
 spending %>% group_by(gender) %>%
-  summarize(m = mean(monthly_income),
-            n = n()) %>% ungroup()
-#Female and Non-binary people have an higher average of monthly income than men
+  summarize(avg_income = mean(monthly_income),
+            n = n(), avg_expenses = mean(total_expenses)) %>% ungroup()
+#Female and Non-binary people have an higher average of monthly income than men. However men on average tend to have the highest total expenses
 
 
 
