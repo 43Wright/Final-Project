@@ -78,7 +78,6 @@ dim(spending)
 
 #Removing Preferred Payment Method column since it is not relevant to the questions we want to answer
 spending %>% select(-preferred_payment_method)
-
 ```
 ## Results/Questions we want to answer
 ``` {r}
@@ -95,8 +94,16 @@ spending %>% select(-preferred_payment_method)
 
 ``` {r}
 ### Which category produces the highest expenses
-
-#spending %>% ggplot(aes())
+#total_trans <- sum(spending['transportation'])
+#total_books <- sum(spending['books_supplies'])
+#total_enter <- sum(spending['entertainment'])
+#total_tut <- sum(spending['tuition'])
+#total_food <- sum(spending['food'])
+#total_person <- sum(spending['personal_care'])
+#total_tech <- sum(spending['technology'])
+#total_health <- sum(spending['health_wellness'])
+#total_misc <- sum(spending['miscellaneous'])
+#spending %>% ggplot(aes(x = c(total_trans, total_books))) + geom_col()
 ```
 
 ``` {r}
@@ -114,11 +121,17 @@ spending %>% select(-preferred_payment_method)
 ``` {r}
 ### Distribution of Gender and Majors
 
-#spending %>% ggplot(aes())
+
+#spending %>% ggplot(aes(x = group_by(gender), y = major)) + geom_bar() 
 ```
 
 ``` {r}
-### Difference in students expenses based on gender
+### Difference in students expenses and income based on gender
+
+#Displays each genders average income
+spending %>% group_by(gender) %>%
+  summarize(m = mean(monthly_income),
+            n = n()) %>% ungroup()
 
 #spending %>% ggplot(aes())
 ```
@@ -130,7 +143,7 @@ spending %>% select(-preferred_payment_method)
 ```
 
 ``` {r}
-### Distribution of different expenses 
+### Distribution of total different expenses 
 
-#spending %>% ggplot(aes())
+#spending %>% ggplot(aes(x = c('transportation', 'book_supplies', 'entertainment')) + geom_point()
 ```
