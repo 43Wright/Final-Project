@@ -81,8 +81,8 @@ dim(spending)
 spending <- spending %>% select(-preferred_payment_method)
 
 #Adding total expenses column
-#spending <- spending %>% mutate(total_expenses = sum(spending[:]))
-#spending
+spending <- spending %>% mutate(total_expenses = rowSums(pick(tuition:miscellaneous)))
+spending
 ```
 ## Results/Questions we want to answer
 ``` {r}
