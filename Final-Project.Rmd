@@ -104,15 +104,14 @@ spending
 ``` {r}
 ### Which Majors have the highest tuition 
 
-#spending %>% ggplot(aes())
+#Bar graph displaying the total expenses of each major
+spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses)) + geom_col()
+# Biology students tend to have the most expenses, with economic students with the second most expenses
 ```
 
 ``` {r}
 ### School Expenses based on major
 
-#Bar graph displaying the total expenses of each major
-spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses)) + geom_col()
-# Biology students tend to have the most expenses, with economic students with the second most expenses
 ```
 
 ``` {r}
