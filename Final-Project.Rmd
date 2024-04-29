@@ -93,7 +93,7 @@ spending
 ``` {r}
 ### Distribution of majors based on their income and expenses
 
-#spending %>% ggplot(aes())
+#spending %>% group_by(major) %>% ggplot(aes(y = income, x = ))
 ```
 
 ``` {r}
@@ -117,8 +117,9 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses)) + ge
 ``` {r}
 ### Distribution of Gender and Majors
 
-
-#spending %>% ggplot(aes(x = group_by(gender), y = major)) + geom_bar() 
+#Graph of students gender and major
+spending %>% group_by(major, gender) %>% ggplot(aes(x = major, fill = gender)) + geom_bar(position = position_dodge(preserve = 'single')) 
+#Appears biology students have the most non-binary students. Economics and Biology are tied for having the most males in their programs
 ```
 
 ``` {r}
