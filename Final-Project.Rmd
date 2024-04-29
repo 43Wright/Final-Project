@@ -87,7 +87,7 @@ spending
 ## Results/Questions we want to answer
 ``` {r}
 ### Percentage of monthly income used for expenses other than school costs
-#spending %>% ggplot(aes(x = monthly_income, y = other_expenses)) + geom_line()
+
 ```
 
 ``` {r}
@@ -98,9 +98,7 @@ spending
 
 ``` {r}
 ### Which category produces the highest expenses
-#expenses_df <- spending %>% select(tuition, housing, food, transportation, books_supplies, entertainment, personal_care, technology, health_wellness, miscellaneous)
-#ggplot(data = expenses_df, aes())
-#spending %>% ggplot(aes(x = c(tuition, health_wellness, transportation))) + geom_col()
+
 ```
 
 ``` {r}
@@ -148,5 +146,4 @@ spending %>% group_by(gender) %>%
 ``` {r}
 ### Distribution of total different expenses 
 
-#spending %>% ggplot(aes(x = c('transportation', 'book_supplies', 'entertainment')) + geom_point()
 ```
