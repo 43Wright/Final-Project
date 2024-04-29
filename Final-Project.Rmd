@@ -99,8 +99,8 @@ spending
 
 ``` {r}
 ### Which category produces the highest expenses
-expenses_df <- spending %>% select(tuition, housing, food, transportation, books_supplies, entertainment, personal_care, technology, health_wellness, miscellaneous)
-ggplot(data = expenses_df, aes())
+#expenses_df <- spending %>% select(tuition, housing, food, transportation, books_supplies, entertainment, personal_care, technology, health_wellness, miscellaneous)
+#ggplot(data = expenses_df, aes())
 #spending %>% ggplot(aes(x = c(tuition, health_wellness, transportation))) + geom_col()
 ```
 
@@ -113,7 +113,9 @@ ggplot(data = expenses_df, aes())
 ``` {r}
 ### School Expenses based on major
 
-#spending %>% ggplot(aes())
+#Bar graph displaying the total expenses of each major
+spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses)) + geom_col()
+# Biology students tend to have the most expenses, with economic students with the second most expenses
 ```
 
 ``` {r}
