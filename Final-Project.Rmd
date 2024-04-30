@@ -22,7 +22,7 @@ Exploring the following questions/prompts:
 
 2) Does different majors affect student's monthly income?
 
-3) Which category has the highest expenses?
+3) Which category has the highest expenses (excluding school affiliated costs: tuition)?
 
 4) Which Majors have the highest Tuitions
 
@@ -111,9 +111,21 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = monthly_income, fill 
 #Biology students tend to make the most among college students
 ```
 
+
 ``` {r}
-### Which category produces the highest expenses
-spending %>% summarize() %>% ungroup()
+expenses_df <- spending %>% select(housing, books_supplies, food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)
+summary(expenses_df)
+```
+
+``` {r}
+### Which category produces the highest expenses (excluding tuition, and Housing)
+avg_expenses <- c(mean(expenses_df$food), mean(expenses_df$transportation), mean(expenses_df$entertainment), mean(expenses_df$personal_care), mean(expenses_df$technology), mean(expenses_df$health_wellness), mean(expenses_df$miscellaneous), mean(expenses_df$books_supplies))
+
+names_avg <- c('Avg Food', 'Avg tranportation', 'Avg extertainment', 'Avg personal care', 'Avg technology', 'Avg Health', 'Avg misc', 'Avg Books')
+
+avg_df <- data.frame(names_avg, avg_expenses)
+avg_df %>% group_by(names_avg) %>% ggplot(aes(x = names_avg, y = avg_expenses, fill = names_avg)) + geom_col() + coord_flip()
+#Housing and tuition normally would be largest expenses.
 ```
 
 ``` {r}
@@ -147,9 +159,7 @@ spending %>% group_by(gender) %>%
 #Female and Non-binary people have an higher average of monthly income than men. However men on average tend to have the highest total expenses
 
 
-
-
-#spending %>% ggplot(aes())
+spending %>% ggplot(aes())
 ```
 
 ``` {r}
