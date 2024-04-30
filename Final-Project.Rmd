@@ -34,8 +34,6 @@ Exploring the following questions/prompts:
 
 8) Major distribution by year and gender
 
-9) Correlations of each variable/attribute
-
 ## Data Structure:
 Dataset: "https://www.kaggle.com/datasets/sumanthnimmagadda/student-spending-dataset/data"
 Variables Inlcuded in the dataset:
@@ -184,9 +182,4 @@ spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tui
 ## Student monthly income based on year
 spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = monthly_income, fill = year_in_school)) + geom_col()
 # Also doesn't display much different between each year
-```
-
-``` {r}
-### Distribution of total different expenses 
-
 ```
