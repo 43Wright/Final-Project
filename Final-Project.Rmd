@@ -84,7 +84,7 @@ spending <- spending %>% select(-preferred_payment_method)
 spending <- spending %>% mutate(total_expenses = rowSums(pick(tuition:miscellaneous)), other_expenses = rowSums(pick(food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)))
 spending
 ```
-## Statistical information to take note of
+## Statistical information to take note of when investigating the data
 ``` {r}
 #Number of each gender
 spending %>% group_by(gender) %>%
