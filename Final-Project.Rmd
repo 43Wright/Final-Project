@@ -138,7 +138,7 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses)) + ge
 
 ``` {r}
 ### School Expenses based on major
-
+spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses, fill = major)) + geom_col() + coord_flip()
 ```
 
 ``` {r}
