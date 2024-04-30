@@ -18,25 +18,23 @@ library(ggplot2)
 Goal of the project is to explore the dataset to be able to visualize student spending habits
 
 Exploring the following questions/prompts:
-1) What percentage is their monthly income is used for other expenses (non-school expenses)?
+1) Does different majors affect student's monthly income?
 
-2) Does different majors affect student's monthly income?
+2) Which category has the highest expenses (excluding school affiliated costs: tuition)?
 
-3) Which category has the highest expenses (excluding school affiliated costs: tuition)?
+3) Which Majors have the highest Tuitions
 
-4) Which Majors have the highest Tuitions
+4) School Expenses based on Major
 
-5) School Expenses based on Major
+5) Does a student's gender have any indication of their major (what majors each gender typically go into)
 
-6) Does a student's gender have any indication of their major (what majors each gender typically go into)
+6) Difference in student's expenses based on gender
 
-7) Difference in student's expenses based on gender
+7) student spending based on year
 
-8) student spending based on year
+8) Major distribution by year and gender
 
-9) Major distribution by year and gender
-
-10) Correlations of each variable/attribute
+9) Correlations of each variable/attribute
 
 ## Data Structure:
 Dataset: "https://www.kaggle.com/datasets/sumanthnimmagadda/student-spending-dataset/data"
@@ -99,21 +97,16 @@ spending %>% group_by(major) %>%
 #Biology has the most amount of students in the program
 ```
 ``` {r}
-#NUmber of people in each year
+##NUmber of people in each year
 spending %>% group_by(year_in_school) %>%
   summarize(n = n()) %>% ungroup()
 
-#Graph displays prior line code
+##Graph displays prior line code
 #spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, fill = year_in_school)) + geom_bar()
 ```
 
 
 ## Results/Questions we want to answer
-``` {r}
-### Percentage of monthly income used for expenses other than school costs
-
-```
-
 ``` {r}
 ### Distribution of majors based on their income
 spending %>% group_by(major) %>% ggplot(aes(x = major, y = monthly_income, fill = major)) + geom_col()
@@ -176,7 +169,21 @@ spending %>% group_by(gender) %>%
 ``` {r}
 ### Student spending based on year in school
 
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, fill = year_in_school)) + geom_bar()
+spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = total_expenses, fill = year_in_school)) + geom_col()
+#Total spending across each year is very similar
+
+##Student spending based on year with non-school related expenses
+spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = other_expenses, fill = year_in_school)) + geom_col()
+#Same as graph before each year has very similar amounts
+
+##Student spending based on year with tuition
+spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tuition, fill = year_in_school)) + geom_col()
+#Same as graph before once again each year has very similar amounts
+```
+``` {r}
+## Student monthly income based on year
+spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = monthly_income, fill = year_in_school)) + geom_col()
+# Also doesn't display much different between each year
 ```
 
 ``` {r}
