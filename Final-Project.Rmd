@@ -113,6 +113,7 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = monthly_income, fill 
 
 
 ``` {r}
+# Avg of each expense (purely for viewing purposes)
 expenses_df <- spending %>% select(housing, books_supplies, food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)
 summary(expenses_df)
 ```
