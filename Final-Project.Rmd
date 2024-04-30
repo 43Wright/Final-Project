@@ -90,12 +90,21 @@ spending
 spending %>% group_by(gender) %>%
   summarize(n = n()) %>% ungroup()
 #More male students in the data than the other two
+
 ```
 ``` {r}
 #Number of each major
 spending %>% group_by(major) %>%
   summarize(n = n()) %>% ungroup()
 #Biology has the most amount of students in the program
+```
+``` {r}
+#NUmber of people in each year
+spending %>% group_by(year_in_school) %>%
+  summarize(n = n()) %>% ungroup()
+
+#Graph displays prior line code
+#spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, fill = year_in_school)) + geom_bar()
 ```
 
 
@@ -133,13 +142,14 @@ avg_df %>% group_by(names_avg) %>% ggplot(aes(x = names_avg, y = avg_expenses, f
 ### Which Majors have the highest tuition 
 
 #Bar graph displaying the total expenses of each major
-spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses)) + geom_col()
+spending %>% group_by(major) %>% ggplot(aes(x = major, y = tuition)) + geom_col()
 # Biology students tend to have the most expenses, with economic students with the second most expenses
 ```
 
 ``` {r}
 ### School Expenses based on major
 spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses, fill = major)) + geom_col() + coord_flip()
+#Biology students tends to have the most total expenses
 ```
 
 ``` {r}
@@ -160,13 +170,13 @@ spending %>% group_by(gender) %>%
 #Female and Non-binary people have an higher average of monthly income than men. However men on average tend to have the highest total expenses
 
 
-spending %>% ggplot(aes())
+#spending %>% group_by(gender) %>% ggplot(aes(x = gender, y = monthly_income)) + geom_col(position = position_dodge(preserve = 'single')) 
 ```
 
 ``` {r}
 ### Student spending based on year in school
 
-#spending %>% ggplot(aes())
+spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, fill = year_in_school)) + geom_bar()
 ```
 
 ``` {r}
