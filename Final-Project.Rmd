@@ -106,9 +106,10 @@ spending %>% group_by(major) %>%
 ```
 
 ``` {r}
-### Distribution of majors based on their income and expenses
-
-#spending %>% group_by(major) %>% ggplot(aes(y = income, x = ))
+### Distribution of majors based on their income
+expenses <- c(spending['tuition'], spending['housing'])
+spending %>% group_by(major) %>% ggplot(aes(x = major, y = monthly_income, fill = major)) + geom_col()
+#Biology students tend to make the most among college students
 ```
 
 ``` {r}
