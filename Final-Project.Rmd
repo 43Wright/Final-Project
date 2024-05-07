@@ -95,19 +95,24 @@ spending %>% group_by(major) %>%
 #Biology has the most amount of students in the program
 ```
 ``` {r}
-##NUmber of people in each year
+##Number of people in each year
 spending %>% group_by(year_in_school) %>%
   summarize(n = n()) %>% ungroup()
 
 ##Graph displays prior line code
 #spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, fill = year_in_school)) + geom_bar()
+
+##Average Income
+average_income <- spending %>% group_by(major) %>% summarise(avg_monthly_income = mean(monthly_income, na.rm = TRUE))
 ```
 
 
 ## Results/Questions we want to answer
 ``` {r}
 ### Distribution of majors based on their income
-spending %>% group_by(major) %>% ggplot(aes(x = major, y = monthly_income, fill = major)) + geom_col()
+
+average_income %>% ggplot(aes(x = major, y = avg_monthly_income)) + geom_col(fill = "black") + coord_flip() + labs(title = "Distribution of Majors Based on Their Average Income", x = "Majors", y = "Average Monthly Income") + theme(legend.position = "none")
+
 #Biology students tend to make the most among college students
 ```
 
@@ -120,12 +125,10 @@ summary(expenses_df)
 
 ``` {r}
 ### Which category produces the highest expenses (excluding tuition, and Housing)
-avg_expenses <- c(mean(expenses_df$food), mean(expenses_df$transportation), mean(expenses_df$entertainment), mean(expenses_df$personal_care), mean(expenses_df$technology), mean(expenses_df$health_wellness), mean(expenses_df$miscellaneous), mean(expenses_df$books_supplies))
-
-names_avg <- c('Avg Food', 'Avg tranportation', 'Avg extertainment', 'Avg personal care', 'Avg technology', 'Avg Health', 'Avg misc', 'Avg Books')
-
+avg_expenses <- c( mean(expenses_df$food), mean(expenses_df$transportation), mean(expenses_df$entertainment), mean(expenses_df$personal_care), mean(expenses_df$technology), mean(expenses_df$health_wellness), mean(expenses_df$miscellaneous), mean(expenses_df$books_supplies) )
+names_avg <- c('Food', 'Transportation', 'Entertainment', 'Personal Care', 'Technology', 'Health', 'Misc', 'Books')
 avg_df <- data.frame(names_avg, avg_expenses)
-avg_df %>% group_by(names_avg) %>% ggplot(aes(x = names_avg, y = avg_expenses, fill = names_avg)) + geom_col() + coord_flip()
+ggplot(data = avg_df, aes(x = names_avg, y = avg_expenses)) + geom_col(fill = "black") + coord_flip() + labs(title = "Average Expenses by Category", x = "Category", y = "Average Expense ($)") + theme(legend.position = "none")
 #Housing and tuition normally would be largest expenses.
 ```
 
@@ -139,7 +142,8 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = tuition)) + geom_col(
 
 ``` {r}
 ### School Expenses based on major
-spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses, fill = major)) + geom_col() + coord_flip()
+grouped_expenses <- spending %>% group_by(major)
+ggplot(data = grouped_expenses, aes(x = major, y = total_expenses)) + geom_col(fill = "black") + coord_flip() + labs(title = "Total Expenses by Major", x = "Major", y = "Total Expenses") + theme(legend.position = "none")
 #Biology students tends to have the most total expenses
 ```
 
@@ -147,7 +151,10 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = total_expenses, fill 
 ### Distribution of Gender and Majors
 
 #Graph of students gender and major
-spending %>% group_by(major, gender) %>% ggplot(aes(x = major, fill = gender)) + geom_bar(position = position_dodge(preserve = 'single')) 
+grouped_spending <- spending %>% group_by(major, gender)
+color_palette <- c("darkred", "red", "coral1")
+ggplot(data = grouped_spending, aes(x = major, fill = gender)) + geom_bar(position = position_dodge(preserve = 'single')) + scale_fill_manual(values = color_palette) + labs(title = "Gender Distribution across Majors", x = "Majors", y = "Count", fill = "Gender")
+
 #Appears biology students have the most non-binary students. Economics and Biology are tied for having the most males in their programs
 ```
 
@@ -166,20 +173,60 @@ spending %>% group_by(gender) %>%
 
 ``` {r}
 ### Student spending based on year in school
-
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = total_expenses, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    group_by(year_in_school) %>%
+    summarise(avg_total_expenses = mean(total_expenses, na.rm = TRUE)) %>%
+    ggplot(aes(x = year_in_school, y = avg_total_expenses)) +
+    geom_col(fill = "black") +
+    labs(
+        title = "Average Total Monthly Expenses based on Year in School",
+        x = "Year in School",
+        y = "Average Total Expenses ($)"
+    ) +
+    theme(legend.position="none", plot.title.position = "panel")
 #Total spending across each year is very similar
 
 ##Student spending based on year with non-school related expenses
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = other_expenses, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    group_by(year_in_school) %>%
+    summarise(avg_other_expenses = mean(other_expenses, na.rm = TRUE)) %>%
+    ggplot(aes(x = year_in_school, y = avg_other_expenses)) +
+    geom_col(fill = "black") +
+    labs(
+        title = "Average Non-School Related Expenses Monthly by Year in School",
+        x = "Year in School",
+        y = "Expenses ($)"
+    ) +
+    theme(legend.position="none", plot.title.position = "panel")
 #Same as graph before each year has very similar amounts
 
 ##Student spending based on year with tuition
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tuition, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    group_by(year_in_school) %>%
+    summarise(avg_tuition = mean(tuition, na.rm = TRUE)) %>%
+    ggplot(aes(x = year_in_school, y = avg_tuition)) +
+    geom_col(fill = "black") +
+    labs(
+        title = "Average Tuition based on Year in School",
+        x = "Year in School",
+        y = "Tuition ($)") +
+    theme(legend.position="none", plot.title.position = "panel")
 #Same as graph before once again each year has very similar amounts
 ```
 ``` {r}
-## Student monthly income based on year
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = monthly_income, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    group_by(year_in_school) %>%
+    summarize(avg_monthly_income = mean(monthly_income, na.rm = TRUE)) %>%
+    ggplot(aes(x = year_in_school, y = avg_monthly_income)) +
+    geom_col(fill="black") +
+    labs(
+        title = "Average Student Monthly Income Based on Year",
+        x = "Year in School",
+        y = "Income ($)",
+    )
 # Also doesn't display much different between each year
 ```
