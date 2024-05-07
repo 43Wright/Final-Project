@@ -1,0 +1,125 @@
+---
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Analysis of Student Spending
+#### Gabriel Wright and Brennan Sauser
+
+## Introduction
+The goal of the project is to explore the dataset and to be able to visualize student spending habits. The dataset contains information such as monthly income, financial aid, gender, major, and other school related expenses such as tuition. Analysis on this topic can help increase students looking to go to college understanding of the costs associated with going to college and look at what affects each variable.
+
+Questions and topics our group explored in our project:
+1. Does different majors affect student's monthly income?
+
+2. Which category has the highest expenses (excluding school affiliated costs: tuition)?
+
+3. Which Majors have the highest Tuition
+
+4. School Expenses based on Major
+
+5. Does a student's gender have any indication of their major (what majors each gender typically go into)
+
+6. Difference in student's expenses based on gender
+
+7. student spending based on year
+
+8. Major distribution by year and gender
+
+9. Distribution of financial aid by major, year and gender
+
+10. Display of financial aid granted vs school related costs
+
+## Data
+### Structure
+The link to the dataset: "https://www.kaggle.com/datasets/sumanthnimmagadda/student-spending-dataset/data". This dataset contains 18 columns which house different student related expenses as well as other factors such as age and gender with 1,000 rows of data.
+### Variables Inlcuded in the dataset:
+1. Age: age of the student
+2. Gender: Student's gender (Male, Female, Non-binary)
+3. Year in School: Year classification (Freshman, Sophmore, Junior, Senior)
+4. Major: Students Major (Psychology, Engineering, Economics, Computer Science, Biology)
+5. Montly Income: Monthly income of the student (in dollars)
+6. Financial Aid: Financial aid recieved by the student (in dollars)
+7. Tuition: Expenses for tuition (in dollars)
+8. Housing: Expenses for Housing (in dollars)
+9. Food: Expenses for food (in dollars)
+10. Transportation: Expenses for transportation
+11. Book and Supplies: Expenses for books and supplies (in dollars)
+12. Entertainment: Expenses for Entertainment (in dollars)
+13. Personal Care: Expenses for personal care items (in dollars)
+14. Technology: Expenses for technology (in dollars)
+15. Health & Wellnesss: Expenses for health and wellness (in dollars)
+16. Miscellaneous: Miscellaneous expenses (in dollars)
+17. Preferred Payment Method: Method of payment (Cash, Credit/Debit card, Moblie Payment App)
+
+
+### Cleaning
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readr)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+First we read the data:
+```{r, warning=FALSE,message=FALSE}
+spending <- read_csv('student_spending.csv')
+```
+After reading the data, we check for null values in our dataset. Forcunty our data contains no null values and doesn't require any adjustments to be made:
+```{r, warning=FALSE,message=FALSE}
+sum(is.na(spending))
+```
+After checking for nulls values we look at the summary of the data as well as looking at the dimensions of the dataset.
+```{r, warning=FALSE,message=FALSE}
+#Summary of data
+summary(spending)
+
+#Checking dimensions of the data
+dim(spending)
+```
+The dataset contains 1000 rows and 18 columns.
+
+After viewing the summary of the data and its dimensions we remove the column preferred_payment_method due to it not having any relevancy to the topics/questions that we want to answer. It also doesn't provide much insight as it doesn't directly imply exactly what was paid and how much was paid.
+```{r, warning=FALSE,message=FALSE}
+spending <- spending %>% select(-preferred_payment_method)
+```
+
+Once we removed preferred_pay_method we created two new columns total_expenses which sums up all expenses in each row and other_expenses column which sums up all non-school related expenses.
+```{r, warning=FALSE,message=FALSE}
+spending <- spending %>% mutate(total_expenses = rowSums(pick(tuition:miscellaneous)), other_expenses = rowSums(pick(food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)))
+```
+
+## Statistical Information
+Before we started looking into our questions and topics we wanted to look more into the data. To understand any possible bias and information that would aid in making conclusions about our results.
+
+First, we looked into the number of people in the dataset grouped by their gender:
+``` {r}
+spending %>% group_by(gender) %>%
+  summarize(n = n()) %>% ungroup()
+```
+This shows that the dataset contains more male students in the data than the other two genders.
+
+Secondly, we looked into the number of people in the dataset grouped by their major:
+``` {r}
+spending %>% group_by(major) %>%
+  summarize(n = n()) %>% ungroup()
+```
+This shows that there are far more students taking biology than any other major in the dataset.
+
+Thirdly, we looked into the number of people in each year:
+``` {r}
+spending %>% group_by(year_in_school) %>%
+  summarize(n = n()) %>% ungroup()
+```
+This shows a pretty equal distribution of students for each year classification.
+
+## Results
+### Distribution of majors based on their income
+``` {r}
+average_income <- spending %>% group_by(major) %>% summarise(avg_monthly_income = mean(monthly_income, na.rm = TRUE))
+
+average_income %>% ggplot(aes(x = major, y = avg_monthly_income)) + geom_col(fill = "black") + coord_flip() + labs(title = "Distribution of Majors Based on Their Average Income", x = "Majors", y = "Monthly Income ($)") + theme(legend.position = "none")
+```
+This graphic displays the average monthly income of the students grouped by their major, looking at the graph each major have very similar averages. However Engineering majors on average have the highest average monthly income. 
