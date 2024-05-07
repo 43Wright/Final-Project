@@ -180,6 +180,9 @@ spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tui
 ```
 ``` {r}
 ## Student monthly income based on year
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = monthly_income, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    group_by(year_in_school) %>%
+    ggplot(aes(x = year_in_school, y = monthly_income, fill = year_in_school)) + geom_col()
 # Also doesn't display much different between each year
 ```
