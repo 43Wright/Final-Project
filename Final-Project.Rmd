@@ -34,6 +34,10 @@ Exploring the following questions/prompts:
 
 8) Major distribution by year and gender
 
+9) Distribution of financial aid by major, year and gender
+
+10) Display of financial aid granted vs school related costs
+
 ## Data Structure:
 Dataset: "https://www.kaggle.com/datasets/sumanthnimmagadda/student-spending-dataset/data"
 Variables Inlcuded in the dataset:
@@ -163,8 +167,7 @@ ggplot(data = grouped_spending, aes(x = major, fill = gender)) + geom_bar(positi
 
 #Displays each genders average income
 spending %>% group_by(gender) %>%
-  summarize(avg_income = mean(monthly_income),
-            n = n(), avg_expenses = mean(total_expenses)) %>% ungroup()
+  summarize(avg_income = mean(monthly_income), avg_expenses = mean(total_expenses), n = n()) %>% ungroup()
 #Female and Non-binary people have an higher average of monthly income than men. However men on average tend to have the highest total expenses
 
 
@@ -229,4 +232,42 @@ spending %>%
         y = "Income ($)",
     )
 # Also doesn't display much different between each year
+```
+``` {r}
+###Distribution of financial aid by major, gender and year
+
+##Average Students financial aid based on major
+spending %>% group_by(major) %>% ggplot(aes(x = major, y = mean(financial_aid))) + geom_col(fill = 'black') + labs(
+        title = "Average Student Financial Aid based on major",
+        x = "Major",
+        y = "Financial Aid ($)",
+    )
+#Biology students on average tends to have the most financial aid
+```
+
+``` {r}
+##Average Students financial aid based on gender
+spending %>% group_by(gender) %>% ggplot(aes(x = gender, y = mean(financial_aid))) + geom_col(fill = 'black') + labs(
+        title = "Average Student Financial Aid based on gender",
+        x = "Gender",
+        y = "Financial Aid ($)",
+    )
+#Male students on average tend to receive more financial aid
+```
+
+``` {r}
+## Student financial aid based on year
+spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = mean(financial_aid))) + geom_col(fill = 'black') + labs(
+        title = "Average Student Financial Aid based on year",
+        x = "Year",
+        y = "Financial Aid ($)",
+    )
+#Financial aid is very similar for each year, not much significant in their differences
+```
+
+``` {r}
+## Financial aid vs tuition
+spending %>%
+  summarize(avg_tuition = mean(tuition), avg_financial_aid = mean(financial_aid), tuition_covered = (avg_financial_aid/avg_tuition * 100))
+#on average financial aid covers for about 11% of an average students tuition
 ```
