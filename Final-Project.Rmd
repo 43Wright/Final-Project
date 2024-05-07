@@ -181,12 +181,14 @@ spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tui
 ``` {r}
 spending %>%
     mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
-    ggplot(aes(x = year_in_school, y = monthly_income)) +
+    group_by(year_in_school) %>%
+    summarize(avg_monthly_income = mean(monthly_income, na.rm = TRUE)) %>%
+    ggplot(aes(x = year_in_school, y = avg_monthly_income)) +
     geom_col(fill="black") +
     labs(
-        title = "Student Monthly Income based on Year",
+        title = "Average Student Monthly Income Based on Year",
         x = "Year in School",
-        y = "Monthly Income",
+        y = "Average Monthly Income ($)",
     )
 # Also doesn't display much different between each year
 ```
