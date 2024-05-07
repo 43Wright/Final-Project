@@ -179,7 +179,14 @@ spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tui
 #Same as graph before once again each year has very similar amounts
 ```
 ``` {r}
-## Student monthly income based on year
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = monthly_income, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    ggplot(aes(x = year_in_school, y = monthly_income)) +
+    geom_col(fill="black") +
+    labs(
+        title = "Student Monthly Income based on Year",
+        x = "Year in School",
+        y = "Monthly Income",
+    )
 # Also doesn't display much different between each year
 ```
