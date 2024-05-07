@@ -175,7 +175,17 @@ spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = oth
 #Same as graph before each year has very similar amounts
 
 ##Student spending based on year with tuition
-spending %>% group_by(year_in_school) %>% ggplot(aes(x = year_in_school, y = tuition, fill = year_in_school)) + geom_col()
+spending %>%
+    mutate(year_in_school = factor(year_in_school, levels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+    group_by(year_in_school) %>%
+    summarise(avg_tuition = mean(tuition, na.rm = TRUE)) %>%
+    ggplot(aes(x = year_in_school, y = avg_tuition)) +
+    geom_col(fill = "black") +
+    labs(
+        title = "Average Tuition based on Year in School",
+        x = "Year in School",
+        y = "Average Tuition") +
+    theme(legend.position="none", plot.title.position = "panel")
 #Same as graph before once again each year has very similar amounts
 ```
 ``` {r}
