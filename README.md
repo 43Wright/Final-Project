@@ -1,5 +1,5 @@
 
-#Analysis of Student Spending
+##Analysis of Student Spending
 #### Gabriel Wright and Brennan Sauser
 
 ## Introduction
