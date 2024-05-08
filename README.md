@@ -1,5 +1,6 @@
 
-\#Analysis of Student Spending \#### Gabriel Wright and Brennan Sauser
+#Analysis of Student Spending
+#### Gabriel Wright and Brennan Sauser
 
 ## Introduction
 
@@ -310,7 +311,7 @@ ggplot(data = grouped_expenses, aes(x = major, y = mean(total_expenses))) + geom
 ![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 We see that the graphic remains about the same in terms of its looks
-with Biology majors on average having the highest total expenses
+with Biology majors on average having the highest total expenses.
 
 ### Distribution of Gender and Majors
 
