@@ -118,6 +118,9 @@ This shows a pretty equal distribution of students for each year classification.
 ## Results
 ### Distribution of majors based on their income
 ``` {r}
+expenses_df <- spending %>% select(housing, books_supplies, food, transportation, entertainment, personal_care, technology, health_wellness, miscellaneous)
+summary(expenses_df)
+
 average_income <- spending %>% group_by(major) %>% summarise(avg_monthly_income = mean(monthly_income, na.rm = TRUE))
 
 average_income %>% ggplot(aes(x = major, y = avg_monthly_income)) + geom_col(fill = "black") + coord_flip() + labs(title = "Distribution of Majors Based on Their Average Income", x = "Majors", y = "Monthly Income ($)") + theme(legend.position = "none")
