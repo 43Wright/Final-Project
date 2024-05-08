@@ -164,7 +164,7 @@ When we break this down to look at the average of each majors total expenses:
 ggplot(data = grouped_expenses, aes(x = major, y = mean(total_expenses))) + geom_col(fill = "black") + coord_flip() + labs(title = "Avg Total Expenses by Major", x = "Major", y = "Expenses ($)") + theme(legend.position = "none")
 ```
 
-We see that the graphic remains about the same in terms of its looks with Biology majors on average having the highest total expenses
+We see that the graphic remains about the same in terms of its looks with Biology majors on average having the highest total expenses.
 
 ### Distribution of Gender and Majors
 ``` {r}
