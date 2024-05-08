@@ -99,6 +99,7 @@ First, we looked into the number of people in the dataset grouped by their gende
 spending %>% group_by(gender) %>%
   summarize(n = n()) %>% ungroup()
 ```
+
 This shows that the dataset contains more male students in the data than the other two genders.
 
 Secondly, we looked into the number of people in the dataset grouped by their major:
@@ -106,6 +107,7 @@ Secondly, we looked into the number of people in the dataset grouped by their ma
 spending %>% group_by(major) %>%
   summarize(n = n()) %>% ungroup()
 ```
+
 This shows that there are far more students taking biology than any other major in the dataset.
 
 Thirdly, we looked into the number of people in each year:
@@ -113,6 +115,7 @@ Thirdly, we looked into the number of people in each year:
 spending %>% group_by(year_in_school) %>%
   summarize(n = n()) %>% ungroup()
 ```
+
 This shows a pretty equal distribution of students for each year classification.
 
 ## Results
@@ -125,6 +128,7 @@ average_income <- spending %>% group_by(major) %>% summarise(avg_monthly_income 
 
 average_income %>% ggplot(aes(x = major, y = avg_monthly_income)) + geom_col(fill = "black") + coord_flip() + labs(title = "Distribution of Majors Based on Their Average Income", x = "Majors", y = "Monthly Income ($)") + theme(legend.position = "none")
 ```
+
 This graphic displays the average monthly income of the students grouped by their major, looking at the graph each major have very similar averages. However Engineering majors on average have the highest average monthly income. Displaying that engineering majors while in school on average have the highest monthly income. 
 
 ### Which category produces the highest expenses (excluding tuition, and Housing)
@@ -135,6 +139,7 @@ names_avg <- c('Food', 'Transportation', 'Entertainment', 'Personal Care', 'Tech
 avg_df <- data.frame(names_avg, avg_expenses)
 ggplot(data = avg_df, aes(x = names_avg, y = avg_expenses)) + geom_col(fill = "black") + coord_flip() + labs(title = "Average Expenses by Category", x = "Category", y = "Expense ($)") + theme(legend.position = "none")
 ```
+
 This graphic displays each expenses excluding tuition and housing due to them on average having exponentially larger costs then those presented in the graph. If included tuition would be the largest expense with housing being the second largest on average. Excluding these two variables, food on average seems to have the highest expenses.
 
 ### Which Majors have the highest tuition
@@ -143,6 +148,7 @@ average_tuition <- spending %>% group_by(major) %>% summarise(avg_tuition = mean
 
 average_tuition %>% ggplot(aes(x = major, y = avg_tuition)) + geom_col(fill = "black") + coord_flip() + labs(title = "Average Tuition for Each Major", x = "Major", y = "Average Tuition") + theme(legend.position = "none")
 ```
+
 This graphic shows that on average psychology majors tend to have the highest tuition compared to the other majors with computer science having the second most. However each major have very similar costs in terms of their tuition.
 
 ### School Expenses based on major
@@ -150,12 +156,14 @@ This graphic shows that on average psychology majors tend to have the highest tu
 grouped_expenses <- spending %>% group_by(major)
 ggplot(data = grouped_expenses, aes(x = major, y = total_expenses)) + geom_col(fill = "black") + coord_flip() + labs(title = "Total Expenses by Major", x = "Major", y = "Expenses ($)") + theme(legend.position = "none")
 ```
+
 This graphic displays an overview of each major's total expenses (cumulative). It displays that overall Biology majors have the highest total expenses.
 
 When we break this down to look at the average of each majors total expenses:
 ``` {r}
 ggplot(data = grouped_expenses, aes(x = major, y = mean(total_expenses))) + geom_col(fill = "black") + coord_flip() + labs(title = "Avg Total Expenses by Major", x = "Major", y = "Expenses ($)") + theme(legend.position = "none")
 ```
+
 We see that the graphic remains about the same in terms of its looks with Biology majors on average having the highest total expenses
 
 ### Distribution of Gender and Majors
@@ -164,6 +172,7 @@ grouped_spending <- spending %>% group_by(major, gender)
 color_palette <- c("darkred", "red", "coral1")
 ggplot(data = grouped_spending, aes(x = major, fill = gender)) + geom_bar(position = position_dodge(preserve = 'single')) + scale_fill_manual(values = color_palette) + labs(title = "Gender Distribution across Majors", x = "Majors", y = "Count", fill = "Gender")
 ```
+
 This graphic displays the distribution of each gender within each major, showing that biology has the highest number of non-binary students, with biology and economics having the highest number of male students, and with Engineering having the highest number of female students.
 
 ### Difference in students expenses and income based on gender
@@ -171,6 +180,7 @@ This graphic displays the distribution of each gender within each major, showing
 spending %>% group_by(gender) %>%
   summarize(avg_income = mean(monthly_income), avg_expenses = mean(total_expenses), n = n()) %>% ungroup()
 ```
+
 Here we look at the differences in students expenses and income based on their gender and we found that female and non-binary students on average have a higher income than male students. However male students on average have higher total expenses than the other two genders.
 
 ### Student spending based on year in school
@@ -188,7 +198,10 @@ spending %>%
     ) +
     theme(legend.position="none", plot.title.position = "panel")
 ```
+
 This graphic displays the average total expenses based on year in school. However each year displays very similar values in their total expenses. Upon breaking this down in several other plots to look at things such as non-school affiliated costs the graph doesn't display any significant change when compared to this graph.
+
+
 ## Average Student income based on year
 ``` {r}
 spending %>%
@@ -203,7 +216,9 @@ spending %>%
         y = "Income ($)",
     )
 ```
+
 This graphic displays the average monthly income of each student based on their year and it displays that on average Freshman typically make more per month than the other three.
+
 
 ###Distribution of financial aid by major, gender and year
 ##Average Students financial aid based on major
@@ -214,6 +229,7 @@ spending %>% group_by(major) %>% ggplot(aes(x = major, y = mean(financial_aid)))
         y = "Financial Aid ($)",
     )
 ```
+
 This graphic displays the average financial aid received by students based on their major. It shows that Biology students on average recieve the most financial aid compared to the other majors, with economics receiving the second highest.
 
 ##Average Students financial aid based on gender
@@ -224,6 +240,7 @@ spending %>% group_by(gender) %>% ggplot(aes(x = gender, y = mean(financial_aid)
         y = "Financial Aid ($)",
     )
 ```
+
 This graphic displays the average financial aid received by each student based on their gender. It shows that male students on average receive the highest financial aid, with female and non-binary students receiving very similar values on average.
 
 ## Student financial aid based on year
@@ -240,6 +257,7 @@ spending %>%
     ) +
     theme(legend.position="none", plot.title.position = "panel")
 ```
+
 This graphic displays the average financial aid received by students based on their year. It shows that each year on average receives very similar amounts of aid, however Seniors typically receive the most financial aid on average.
 
 ## Financial aid vs tuition
@@ -247,6 +265,7 @@ This graphic displays the average financial aid received by students based on th
 spending %>%
   summarize(avg_tuition = mean(tuition), avg_financial_aid = mean(financial_aid), tuition_covered = (avg_financial_aid/avg_tuition * 100))
 ```
+
 This looks at the average financial aid is received by students with the average tuition costs. It shows that the average aid that is received is able to help students cover around 11% of their tuition costs on average.
 
 ## Conclusion
